@@ -7,13 +7,14 @@ import (
 type regNo int
 
 var x regNo
-var y regNo
+var y int
 
-func main () {
+func main() {
 	fmt.Println(x)
 	fmt.Printf("%T\n", x)
 	x = 42
 	fmt.Println(x)
 	y := int(x)
+	fmt.Printf("%T\n", y)
 	fmt.Println(y)
 }
