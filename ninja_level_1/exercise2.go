@@ -10,6 +10,6 @@ var z bool
 
 func main() {
 	fmt.Println(x)
-	fmt.Println(y);
-	fmt.Println(z);
+	fmt.Println(y)
+	fmt.Println(z)
 }
