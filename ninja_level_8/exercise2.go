@@ -22,4 +22,8 @@ func main() {
 		fmt.Println(err)
 	}
 	fmt.Println(people)
+
+	for _, person := range people {
+		fmt.Println(person)
+	}
 }
