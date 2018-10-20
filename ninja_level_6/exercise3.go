@@ -10,5 +10,8 @@ func main() {
 }
 
 func cleanUp() {
+	defer func() {
+		fmt.Println("The cleanUp defer function ran")
+	}()
 	fmt.Println("In cleanUp function, Main exit successful, all clean-up done")
 }
