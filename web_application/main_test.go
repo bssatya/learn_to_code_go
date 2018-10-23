@@ -96,7 +96,7 @@ func TestRouteForNonExistantRoute_newRouter(t *testing.T) {
 
 	// The mock server created runs the server and exposes its location in the URL attribute
 	// We make get request to the 'hello' route that we defined in the router
-	resp, err := http.Post(mockServer.URL + "/hello", "", nil)
+	resp, err := http.Post(mockServer.URL+"/hello", "", nil)
 
 	// handle any unexpected error
 	if err != nil {
@@ -124,5 +124,31 @@ func TestRouteForNonExistantRoute_newRouter(t *testing.T) {
 	// If it does happen to be "Hello World\n", then it confirms, that the route is correct
 	if respString != expected {
 		t.Errorf("Response should be %s, got %s", expected, respString)
+	}
+}
+
+func TestStaticFileServer(t *testing.T) {
+	r := newRouter()
+	mockServer := httptest.NewServer(r)
+
+	// Hit the 'GET /assets/' route to get the index.html file response
+	resp, err := http.Get(mockServer.URL + "/assets/")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// The status to be 200 (ok)
+	if resp.StatusCode != http.StatusOK {
+		t.Errorf("Status should be 200, got %d", resp.StatusCode)
+	}
+
+	// It isn't wise to test the entire content of the html file.
+	// Instead, we test the content-type header is "text/html"; charset=utf-8"
+	// So that we know that the html file has been served
+	contentType := resp.Header.Get("Content-Type")
+	expectedContentType := "text/html; charset=utf-8"
+
+	if expectedContentType != contentType {
+		t.Errorf("Wrong content type, expected %s, got %s", expectedContentType, contentType)
 	}
 }
