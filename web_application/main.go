@@ -1,6 +1,7 @@
 // This is the name of our package
 // Everything with this pacakge name can see everything
 // else inside the same package, regardless of the file they are in
+
 package main
 
 // These are the libraies we are going to use
@@ -14,12 +15,17 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// The new router function creates the router and returns it to us. We can now use this function
+// to instantiate and test the router outside of the main function.
+func newRouter() *mux.Router{
+	r := mux.NewRouter()
+	r.HandleFunc("/hello", handler).Methods("GET")
+	return r
+}
+
 func main() {
 	// Declare a new router
-	r := mux.NewRouter()
-
-	// This is where the router will be useful, it will allow us to declare the methods that this path will be valid for
-	r.HandleFunc("/hello", handler).Methods("GET")
+	r := newRouter()
 
 	// We can pass our router (after declaring all the routes) to this method
 	// (where previously, we were leaving the second argument as nil)
