@@ -70,7 +70,7 @@ func TestCreateBirdsHandler(t *testing.T) {
 	 We expect the first argument to the method to be the bird struct
 	 defined below, and tell the mock to return a `nil` error
 	*/
-	mockStore.On("CreateBird", &Bird{"eagle", "A bird of prey"}).Return(nil)
+	mockStore.On("CreateBird", &Bird{"eagle", "A bird of Prey"}).Return(nil)
 
 	form := newCreateBirdForm()
 	req, err := http.NewRequest("POST", "", bytes.NewBufferString(form.Encode()))

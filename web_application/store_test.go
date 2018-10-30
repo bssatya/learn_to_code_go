@@ -2,8 +2,8 @@ package main
 
 import (
 	"database/sql"
-	"testing"
-	// the "testify/suite" is used to make the test suite
+	"testing" // the "testify/suite" is used to make the test suite
+
 	"github.com/stretchr/testify/suite"
 )
 
@@ -23,8 +23,8 @@ func (s *StoreSuite) SetupSuite() {
 		The database connection is opened in the setup and stored as an instance variable,
 		as in the higher level 'store', that wraps the 'db'
 	*/
-	connString := "dbname=<db name> sslmode=disable"
-	db, err := sql.Open("postgress", connString)
+	connString := "dbname=bird_encyclopedia sslmode=disable"
+	db, err := sql.Open("postgres", connString)
 	if err != nil {
 		s.T().Fatal(err)
 	}
@@ -63,7 +63,7 @@ func (s *StoreSuite) TestCreateBird() {
 		Species:     "test species",
 	})
 
-	res, err := s.db.Query(`SELECT COUNT(*) FROM birds WHERE desciption='test description' and species='test species'`)
+	res, err := s.db.Query(`SELECT COUNT(*) FROM birds WHERE description='test description' and species='test species'`)
 	if err != nil {
 		s.T().Fatal(err)
 	}
@@ -85,7 +85,7 @@ func (s *StoreSuite) TestCreateBird() {
 
 func (s *StoreSuite) TestGetBird() {
 	// Insert a sample bird into the 'birds' table
-	_, err := s.db.Query(`INSERT INTO birds (species, description) VALUES ("bird", "description")`)
+	_, err := s.db.Query(`INSERT INTO birds (species, description) VALUES ('bird', 'description')`)
 	if err != nil {
 		s.T().Fatal(err)
 	}
