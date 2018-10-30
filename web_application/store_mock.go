@@ -23,7 +23,7 @@ func (m *MockStore) GetBirds() ([]*Bird, error) {
 	/*
 		Since the rets.Get() is a generic method, that returns whaever we pass to it, we need to type cast it to the type we expect, which in this case is []*Bird
 	*/
-	return rets.Get(0)([]*Bird), rets.Error(1)
+	return rets.Get(0).([]*Bird), rets.Error(1)
 }
 
 func InitMockStore() *MockStore {
