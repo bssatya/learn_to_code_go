@@ -29,11 +29,11 @@ func (store *dbStore) CreateBird(bird *Bird) error {
 	return err
 }
 
-func (store *dbStore) GetBirds() ([]*Bird, err) {
+func (store *dbStore) GetBirds() ([]*Bird, error) {
 	// Query the database for all the birds, and return the result to the row's object
 	rows, err := store.db.Query("SELECT species, description FROM birds")
 	if err != nil {
-		return nil, error
+		return nil, err
 	}
 	defer rows.Close()
 

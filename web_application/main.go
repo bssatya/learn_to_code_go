@@ -7,11 +7,12 @@ package main
 // These are the libraies we are going to use
 // Both "fmt" and "net" are part of the Go standard library
 import (
-	// "fmt" has methods for formatted I/O operations (like printing to the console)
-	"fmt" // The "net/http" library has methods to implement HTTP clients and servers
+	"database/sql" // "fmt" has methods for formatted I/O operations (like printing to the console)
+	"fmt"          // The "net/http" library has methods to implement HTTP clients and servers
 	"net/http"
 
 	"github.com/gorilla/mux"
+	_ "github.com/lib/pq"
 )
 
 // The new router function creates the router and returns it to us. We can now use this function
@@ -39,6 +40,19 @@ func newRouter() *mux.Router {
 }
 
 func main() {
+	fmt.Println("Starting server...")
+	conString := "dbname=bird_encyclopedia sslmode=disable"
+	db, err := sql.Open("postgres", conString)
+	if err != nil {
+		panic(err)
+	}
+	err = db.Ping()
+	if err != nil {
+		panic(err)
+	}
+
+	InitStore(&dbStore{db: db})
+
 	// Declare a new router
 	r := newRouter()
 
