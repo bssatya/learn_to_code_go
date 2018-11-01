@@ -12,7 +12,7 @@ func main() {
 	fmt.Println(hello("Satya", "Spanish"))
 }
 
-func hello(name string, lang string) (prefix string) {
+func Hello(name string, lang string) (prefix string) {
 	if name == "" {
 		name = "World"
 	}
