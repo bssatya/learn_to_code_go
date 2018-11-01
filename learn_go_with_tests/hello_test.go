@@ -3,18 +3,25 @@ package main
 import "testing"
 
 func Test_hello(t *testing.T) {
-	tests := []struct {
-		name string
-		want string
-	}{
-		// TODO: Add test cases.
-		{"Positive", "Hello, World!",},
+
+	assertCorrectMessage := func(t *testing.T, got, want string) {
+		t.Helper()
+		if got != want {
+			t.Errorf("Got '%s', Want '%s'", got, want)
+		}
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := hello(); got != tt.want {
-				t.Errorf("hello() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+
+	t.Run("Saying hello to people", func(t *testing.T) {
+		got := hello("Satya")
+		want := "Hello, Satya"
+
+		assertCorrectMessage(t, got, want)
+	})
+
+	t.Run("Say 'Hello, World' when empty string is supplied", func(t *testing.T) {
+		got := hello("")
+		want := "Hello, World"
+
+		assertCorrectMessage(t, got, want)
+	})
 }
