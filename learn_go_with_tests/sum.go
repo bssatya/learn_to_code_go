@@ -22,7 +22,14 @@ func SumAllTails(slicesToSum ...[]int) (tailSums []int) {
 	tailSums = make([]int, numberOfSlices)
 
 	for i, slice := range slicesToSum {
-		tailSums[i] = Sum(slice[1:])
+		var sum int
+		if len(slice) == 0 {
+			sum = 0
+		} else {
+			tail := slice[1:]
+			sum = Sum(tail)
+		}
+		tailSums[i] = sum
 	}
 	return
 }

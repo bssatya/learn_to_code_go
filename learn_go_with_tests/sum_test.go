@@ -28,12 +28,24 @@ func Test_SumAll(t *testing.T) {
 }
 
 func Test_SumAllTails(t *testing.T) {
-	got := SumAllTails([]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9})
-	expected := []int{5, 11, 17}
 
-	if !reflect.DeepEqual(got, expected) {
-		t.Errorf("Got (%v), Expected (%v)", got, expected)
-	}
+	t.Run("make sum of tails of slices", func(t *testing.T) {
+		got := SumAllTails([]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9})
+		expected := []int{5, 11, 17}
+
+		if !reflect.DeepEqual(got, expected) {
+			t.Errorf("Got (%v), Expected (%v)", got, expected)
+		}
+	})
+
+	t.Run("check safely sum up empty slices", func(t *testing.T) {
+		got := SumAllTails([]int{}, []int{1, 2, 3}, []int{4, 5, 6})
+		expected := []int{0, 5, 11}
+
+		if !reflect.DeepEqual(got, expected) {
+			t.Errorf("Got (%v), Expected (%v)", got, expected)
+		}
+	})
 }
 
 func BenchmarkSumAll(b *testing.B) {
