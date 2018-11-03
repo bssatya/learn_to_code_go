@@ -27,8 +27,23 @@ func Test_SumAll(t *testing.T) {
 	}
 }
 
+func Test_SumAllTails(t *testing.T) {
+	got := SumAllTails([]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9})
+	expected := []int{5, 11, 17}
+
+	if !reflect.DeepEqual(got, expected) {
+		t.Errorf("Got (%v), Expected (%v)", got, expected)
+	}
+}
+
 func BenchmarkSumAll(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		SumAll([]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9})
+	}
+}
+
+func BenchmarkSumAllTails(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SumAllTails([]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9})
 	}
 }
