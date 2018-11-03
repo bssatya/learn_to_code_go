@@ -26,3 +26,9 @@ func Test_SumAll(t *testing.T) {
 		t.Errorf("Got (%v), Expected (%v)", got, expected)
 	}
 }
+
+func BenchmarkSumAll(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SumAll([]int{1, 2, 3}, []int{4, 5, 6}, []int{7, 8, 9})
+	}
+}
