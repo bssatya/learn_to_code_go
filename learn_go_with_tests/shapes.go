@@ -14,6 +14,11 @@ type Circle struct {
 	Radius float64
 }
 
+type Triange struct {
+	Base   float64
+	Height float64
+}
+
 func (r Rectange) Area() (area float64) {
 	area = r.Height * r.Width
 	return
@@ -21,6 +26,11 @@ func (r Rectange) Area() (area float64) {
 
 func (c Circle) Area() (area float64) {
 	area = math.Pi * c.Radius * c.Radius
+	return
+}
+
+func (t Triange) Area() (area float64) {
+	area = 0.5 * t.Base * t.Height
 	return
 }
 
