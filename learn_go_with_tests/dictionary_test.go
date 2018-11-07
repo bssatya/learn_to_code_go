@@ -27,7 +27,7 @@ func TestAdd(t *testing.T) {
 
 	t.Run("Add a word", func(t *testing.T) {
 		dictionary.Add("noun", "name of a place or a person")
-		want := "name of a place or person"
+		want := "name of a place or a person"
 		got, err := dictionary.Search("noun")
 
 		if err != nil {
