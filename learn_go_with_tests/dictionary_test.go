@@ -23,13 +23,22 @@ func TestSearch(t *testing.T) {
 }
 
 func TestAdd(t *testing.T) {
-	dictionary := Dictionary{}
-
-	t.Run("Add a word", func(t *testing.T) {
+	t.Run("Add a new word", func(t *testing.T) {
+		dictionary := Dictionary{}
 		word := "noun"
 		definition := "name of a place or a person"
-		dictionary.Add(word, definition)
+		err := dictionary.Add(word, definition)
+		assertNoError(t, err)
 		asserDefinition(t, dictionary, word, definition)
+	})
+
+	t.Run("Add a existing word", func(t *testing.T) {
+		word := "noun"
+		definition := "name of a place or a person"
+		dictionary := Dictionary{word: definition}
+
+		err := dictionary.Add(word, "name of anything")
+		assertError(t, err, ErrorWordExists)
 	})
 }
 
