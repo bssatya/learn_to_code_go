@@ -66,17 +66,25 @@ func TestUpdate(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
+
+	word := "noun"
+	definition := "name of a place or person"
+	dictionary := Dictionary{word: definition}
+
 	t.Run("Delete existing word", func(t *testing.T) {
-		word := "noun"
-		definition := "name of a place or person"
-
-		dictionary := Dictionary{word: definition}
-
 		err := dictionary.Delete(word)
 
 		_, err = dictionary.Search(word)
 		if err != ErrorNotFound {
 			t.Errorf("Expected (%s) to be deleted", word)
+		}
+	})
+
+	t.Run("Delete non existing word", func(t *testing.T) {
+		err := dictionary.Delete("not exits")
+
+		if err != ErrorNotFound {
+			t.Errorf("Expected (%s) to be deleted", "not exits")
 		}
 	})
 }
