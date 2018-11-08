@@ -49,7 +49,9 @@ func TestUpdate(t *testing.T) {
 		dictionary := Dictionary{word: definition}
 		newDefinistion := "name of a place or a person"
 
-		dictionary.Update(word, newDefinistion)
+		err := dictionary.Update(word, newDefinistion)
+
+		assertNoError(t, err)
 		asserDefinition(t, dictionary, word, newDefinistion)
 	})
 
@@ -57,8 +59,9 @@ func TestUpdate(t *testing.T) {
 		word := "verb"
 		definition := "represents action"
 		dictionary := Dictionary{}
-		dictionary.Update(word, definition)
-		asserDefinition(t, dictionary, word, definition)
+		err := dictionary.Update(word, definition)
+
+		assertError(t, err, ErrorWordDoesNotExists)
 	})
 }
 func assertStrings(t *testing.T, got, want string) {
