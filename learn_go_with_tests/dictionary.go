@@ -34,14 +34,6 @@ func (d Dictionary) Add(word, definition string) error {
 	return nil
 }
 
-func (d Dictionary) Update(word, newDefinition string) error {
-	_, err := d.Search(word)
-
-	switch err {
-	case nil:
-		d[word] = newDefinition
-	default:
-		return err
-	}
-	return nil
+func (d Dictionary) Update(word, newDefinition string) {
+	d[word] = newDefinition
 }
