@@ -37,22 +37,22 @@ func TestCountdown(t *testing.T) {
 
 		got := buffer.String()
 		want := `3
-	2
-	1
-	Go!`
+2
+1
+Go!`
 		if got != want {
 			t.Errorf("Got (%s) want (%s)", got, want)
 		}
 	})
 
 	t.Run("sleep after every pring", func(t *testing.T) {
-		spySleepPrinter := CountdownOperationsSpy{}
+		spySleepPrinter := &CountdownOperationsSpy{}
 		Countdown(spySleepPrinter, spySleepPrinter)
 
 		want := []string{sleep, write, sleep, write, sleep, write, sleep, write}
 
-		if reflect.DeepEqual(want, spySleepPrinter.Calls) {
-			t.Errorf("Got (%s), Want (%s)", spySleepPrinter.Calls, want)
+		if !reflect.DeepEqual(want, spySleepPrinter.Calls) {
+			t.Errorf("Got (%v) Want (%v)", spySleepPrinter.Calls, want)
 		}
 	})
 }
