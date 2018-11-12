@@ -12,6 +12,10 @@ type ConfigurableSleeper struct {
 	sleep    func(time.Duration)
 }
 
+func (c *ConfigurableSleeper) Sleep() {
+	c.sleep(c.duration)
+}
+
 type SpyTime struct {
 	durationSlept time.Duration
 }
@@ -77,7 +81,7 @@ func TestConfigurableSleeper(t *testing.T) {
 	spyTime := &SpyTime{}
 	sleeper := ConfigurableSleeper{sleepTime, spyTime.Sleep}
 
-	sleeper.sleep()
+	sleeper.Sleep()
 
 	if spyTime.durationSlept != sleepTime {
 		t.Errorf("should have slept for %v but slept for %v", sleepTime, spyTime.durationSlept)
