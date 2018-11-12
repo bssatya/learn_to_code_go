@@ -4,7 +4,21 @@ import (
 	"bytes"
 	"reflect"
 	"testing"
+	"time"
 )
+
+type ConfigurableSleeper struct {
+	duration time.Duration
+	sleep    func(time.Duration)
+}
+
+type SpyTime struct {
+	durationSlept time.Duration
+}
+
+func (s *SpyTime) Sleep(duration time.Duration) {
+	s.durationSlept = duration
+}
 
 type SpySleeper struct {
 	Calls int
@@ -55,4 +69,17 @@ Go!`
 			t.Errorf("Got (%v) Want (%v)", spySleepPrinter.Calls, want)
 		}
 	})
+}
+
+func TestConfigurableSleeper(t *testing.T) {
+	sleepTime := 5 * time.Second
+
+	spyTime := &SpyTime{}
+	sleeper := ConfigurableSleeper{sleepTime, spyTime.Sleep}
+
+	sleeper.sleep()
+
+	if spyTime.durationSlept != sleepTime {
+		t.Errorf("should have slept for %v but slept for %v", sleepTime, spyTime.durationSlept)
+	}
 }
