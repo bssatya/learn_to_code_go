@@ -3,11 +3,21 @@ package main
 import (
 	"fmt"
 	"io"
+	"os"
 	"time"
 )
 
 type Sleeper interface {
 	Sleep()
+}
+
+type ConfigurableSleeper struct {
+	duration time.Duration
+	sleep    func(time.Duration)
+}
+
+func (c *ConfigurableSleeper) Sleep() {
+	c.sleep(c.duration)
 }
 
 type DefaultSleeper struct{}
@@ -28,7 +38,7 @@ func Countdown(out io.Writer, sleeper Sleeper) {
 	fmt.Fprintf(out, finalWord)
 }
 
-// func main() {
-// 	sleeper := &DefaultSleeper{}
-// 	Countdown(os.Stdout, sleeper)
-// }
+func main() {
+	sleeper := &ConfigurableSleeper{1 * time.Second, time.Sleep}
+	Countdown(os.Stdout, sleeper)
+}
