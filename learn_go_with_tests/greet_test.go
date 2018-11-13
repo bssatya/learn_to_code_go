@@ -6,7 +6,6 @@ import (
 	"testing"
 	"time"
 )
-
 type SpyTime struct {
 	durationSlept time.Duration
 }
