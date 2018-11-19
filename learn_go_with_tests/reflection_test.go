@@ -43,7 +43,7 @@ func TestWalk(t *testing.T) {
 				Name string
 				City string
 			}{"Chris", "London"},
-			[]string{"Chris, London"},
+			[]string{"Chris", "London"},
 		},
 	}
 
