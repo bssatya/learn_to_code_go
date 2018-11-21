@@ -6,5 +6,15 @@ import (
 )
 
 func PlayerServer(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "20")
+	player := r.URL.Path[len("/players/"):]
+
+	if player == "Pepper" {
+		fmt.Fprintf(w, "20")
+		return
+	}
+
+	if player == "Floyd" {
+		fmt.Fprintf(w, "10")
+		return
+	}
 }
