@@ -116,15 +116,12 @@ func TestRecordingWinsAndRetrievingThemFromPostgresStore(t *testing.T) {
 	player := "Joney"
 
 	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
-	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
-	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
-	server.ServeHTTP(httptest.NewRecorder(), newPostWinRequest(player))
 
 	response := httptest.NewRecorder()
 	server.ServeHTTP(response, newGetScoreRequest(player))
 	assertStatus(t, response.Code, http.StatusOK)
 
-	assertResponseBody(t, response.Body.String(), "4")
+	assertResponseBody(t, response.Body.String(), "1")
 }
 
 func newGetScoreRequest(name string) *http.Request {

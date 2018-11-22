@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 
 	_ "github.com/lib/pq"
 )
@@ -25,9 +26,26 @@ func NewPostgresPlayerStore() *PostgresPlayerStore {
 }
 
 func (p *PostgresPlayerStore) GetPlayerScore(name string) int {
-	return 12
+	rows, err := p.store.Query("SELECT wins FROM player_wins WHERE name = $1", name)
+	if err != nil {
+		return 0
+	}
+	defer rows.Close()
+
+	fmt.Println(rows)
+	for rows.Next() {
+		var wins int
+		rows.Scan(&wins)
+		return wins
+	}
+	return 0
 }
 
 func (p *PostgresPlayerStore) RecordWin(name string) {
+	fmt.Println("In Postgres store for RecordWin for ", name)
+	_, err := p.store.Query("INSERT INTO player_wins(name, wins) VALUES ($1, $2)", name, 1)
 
+	if err != nil {
+		fmt.Errorf("Error adding player win to database")
+	}
 }
