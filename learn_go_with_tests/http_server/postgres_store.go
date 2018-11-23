@@ -27,6 +27,7 @@ func NewPostgresPlayerStore() *PostgresPlayerStore {
 
 func (p *PostgresPlayerStore) GetPlayerScore(name string) int {
 	rows, err := p.store.Query("SELECT wins FROM player_wins WHERE name = $1", name)
+	fmt.Println(err)
 	if err != nil {
 		return 0
 	}
@@ -43,7 +44,7 @@ func (p *PostgresPlayerStore) GetPlayerScore(name string) int {
 
 func (p *PostgresPlayerStore) RecordWin(name string) {
 	fmt.Println("In Postgres store for RecordWin for ", name)
-	_, err := p.store.Query("INSERT INTO player_wins(name, wins) VALUES ($1, $2)", name, 1)
+	_, err := p.store.Query("INSERT INTO player_wins(name, wins) VALUES ($1, $2) ON CONFLICT (name) DO UPDATE SET wins = player_wins.wins + 1", name, 1)
 
 	if err != nil {
 		fmt.Errorf("Error adding player win to database")
