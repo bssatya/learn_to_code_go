@@ -8,6 +8,10 @@ func NewInMemoryPlayerStore() *InMemoryPlayerStore {
 	return &InMemoryPlayerStore{map[string]int{}}
 }
 
+func (i *InMemoryPlayerStore) GetLeague() []Player {
+	return nil
+}
+
 func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
 	return i.store[name]
 }

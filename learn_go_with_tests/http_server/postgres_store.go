@@ -25,6 +25,10 @@ func NewPostgresPlayerStore() *PostgresPlayerStore {
 	return &PostgresPlayerStore{store: db}
 }
 
+func (p *PostgresPlayerStore) GetLeague() []Player {
+	return nil
+}
+
 func (p *PostgresPlayerStore) GetPlayerScore(name string) int {
 	rows, err := p.store.Query("SELECT wins FROM player_wins WHERE name = $1", name)
 	if err != nil {
