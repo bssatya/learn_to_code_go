@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"io"
 )
 
@@ -9,5 +10,9 @@ type FileSystemPlayerStore struct {
 }
 
 func (f *FileSystemPlayerStore) GetLeague() []Player {
-	return nil
+
+	var league []Player
+	json.NewDecoder(f.database).Decode(&league)
+
+	return league
 }
