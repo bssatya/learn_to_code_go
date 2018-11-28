@@ -27,7 +27,7 @@ func TestFileSystemStore(t *testing.T) {
 
 		store := FileSystemPlayerStore{database}
 
-		got := store.GetPlayerStore("Chris")
+		got := store.GetPlayerScore("Chris")
 
 		want := 33
 
