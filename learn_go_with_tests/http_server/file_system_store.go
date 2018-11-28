@@ -14,3 +14,7 @@ func (f *FileSystemPlayerStore) GetLeague() []Player {
 
 	return league
 }
+
+func (f *FileSystemPlayerStore) GetPlayerScore(name string) int {
+	return 0
+}
