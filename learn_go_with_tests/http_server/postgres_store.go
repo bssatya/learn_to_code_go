@@ -25,7 +25,7 @@ func NewPostgresPlayerStore() *PostgresPlayerStore {
 	return &PostgresPlayerStore{store: db}
 }
 
-func (p *PostgresPlayerStore) GetLeague() []Player {
+func (p *PostgresPlayerStore) GetLeague() League {
 	return nil
 }
 
