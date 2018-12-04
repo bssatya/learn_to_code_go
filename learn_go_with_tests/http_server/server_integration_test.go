@@ -7,9 +7,11 @@ import (
 )
 
 func TestRecordingWinsAndRetrievingThem(t *testing.T) {
-	database, cleanDatabase := createTempFile(t, "")
+	database, cleanDatabase := createTempFile(t, `[]`)
 	defer cleanDatabase()
-	store := NewFileSystemPlayerStore(database)
+	store, err := NewFileSystemPlayerStore(database)
+	assertNoError(t, err)
+
 	server := NewPlayerServer(store)
 
 	player := "Pepper"
@@ -54,4 +56,11 @@ func TestRecordingWinsAndRetrievingThemFromPostgresStore(t *testing.T) {
 	assertStatus(t, response.Code, http.StatusOK)
 
 	assertResponseBody(t, response.Body.String(), "4")
+}
+
+func assertNoError(t *testing.T, err error) {
+	t.Helper()
+	if err != nil {
+		t.Fatalf("didnt expect an error but got one, %v", err)
+	}
 }
