@@ -146,6 +146,7 @@ func getLeagueFromResponse(t *testing.T, body io.Reader) (league []Player) {
 }
 
 func assertLeague(t *testing.T, got, want []Player) {
+	t.Helper()
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got %v, wanted %v", got, want)
 	}
