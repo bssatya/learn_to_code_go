@@ -21,6 +21,7 @@ func TestFileSystemStore(t *testing.T) {
 			{"Chris", 33},
 			{"Cleo", 10},
 		}
+
 		assertNoError(t, err)
 		assertLeague(t, got, want)
 	})
