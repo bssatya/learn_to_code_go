@@ -1,4 +1,4 @@
-package main
+package poker
 
 import (
 	"net/http"
@@ -55,7 +55,7 @@ func TestRecordingWinsAndRetrievingThemFromPostgresStore(t *testing.T) {
 	server.ServeHTTP(response, newGetScoreRequest(player))
 	assertStatus(t, response.Code, http.StatusOK)
 
-	assertResponseBody(t, response.Body.String(), "4")
+	assertResponseBody(t, response.Body.String(), "12")
 }
 
 func assertNoError(t *testing.T, err error) {
