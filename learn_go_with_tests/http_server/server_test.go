@@ -138,7 +138,7 @@ func getLeagueFromResponse(t *testing.T, body io.Reader) (league []Player) {
 	return
 }
 
-func assertPlayerWin(t *testing.T, store *StubPlayerStore, winner string) {
+func AssertPlayerWin(t *testing.T, store *StubPlayerStore, winner string) {
 	t.Helper()
 
 	if len(store.winCalls) != 1 {
