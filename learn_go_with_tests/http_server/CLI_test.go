@@ -3,9 +3,24 @@ package poker_test
 import (
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/bssatya/learn_to_code_go/learn_go_with_tests/http_server"
 )
+
+type SpyBlindAlerter struct {
+	alerts []struct {
+		scheduledAt time.Duration
+		ammount     int
+	}
+}
+
+func (s *SpyBlindAlerter) ScheduledAlertAt(duration time.Duration, ammount int) {
+	s.alerts = append(s.alerts, struct {
+		scheduledAt time.Duration
+		ammount     int
+	}{duration, ammount})
+}
 
 func TestCLI(t *testing.T) {
 	t.Run("record Chris win from the user input", func(t *testing.T) {
