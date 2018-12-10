@@ -102,11 +102,16 @@ func TestCLI(t *testing.T) {
 				}
 
 				gotScheduledTime := alert.at
-				if gotScheduledTime != c.expectedScheduleTime {
-					t.Errorf("got scheduled time of %v, want %v", gotScheduledTime, c.expectedScheduleTime)
-				}
+				assertScheduledAlert(t, gotScheduledTime, c.expectedScheduleTime)
 			})
 		}
 	})
 
+}
+
+func assertScheduledAlert(t *testing.T, got, want time.Duration) {
+	t.Helper()
+	if got != want {
+		t.Errorf("Got scheduled time of %s, want %s", got, want)
+	}
 }
