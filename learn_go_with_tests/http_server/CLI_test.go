@@ -6,21 +6,24 @@ import (
 	"testing"
 	"time"
 
-	"github.com/learn_to_code_go/learn_go_with_tests/http_server"
+	"github.com/bssatya/learn_to_code_go/learn_go_with_tests/http_server"
 )
 
-type SpyBlindAlerter struct {
-	alerts []struct {
-		scheduledAt time.Duration
-		amount      int
-	}
+type scheduledAlert struct {
+	at     time.Duration
+	amount int
 }
 
-func (s *SpyBlindAlerter) ScheduleAlertAt(duration time.Duration, ammount int) {
-	s.alerts = append(s.alerts, struct {
-		scheduledAt time.Duration
-		amount      int
-	}{duration, ammount})
+func (s scheduledAlert) String() string {
+	return fmt.Sprintf("%d chips at %v", s.amount, s.at)
+}
+
+type SpyBlindAlerter struct {
+	alerts []scheduledAlert
+}
+
+func (s *SpyBlindAlerter) ScheduleAlertAt(at time.Duration, ammount int) {
+	s.alerts = append(s.alerts, scheduledAlert{at, ammount})
 }
 
 var dummySpyAlerter = &SpyBlindAlerter{}
@@ -98,7 +101,7 @@ func TestCLI(t *testing.T) {
 					t.Errorf("got amount %d, want %d", amountGot, c.expectedAmount)
 				}
 
-				gotScheduledTime := alert.scheduledAt
+				gotScheduledTime := alert.at
 				if gotScheduledTime != c.expectedScheduleTime {
 					t.Errorf("got scheduled time of %v, want %v", gotScheduledTime, c.expectedScheduleTime)
 				}
